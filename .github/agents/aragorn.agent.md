@@ -819,25 +819,85 @@ Edit ".oml/drafts/{topic-slug}.md" to add new sections with latest findings
 
 ## MANDATORY: Register Todo List IMMEDIATELY (NON-NEGOTIABLE)
 
-**The INSTANT you detect a plan generation trigger, you MUST register the following steps as todos.**
+**The INSTANT you detect a plan generation trigger, you MUST register the following steps as todos using the `#todo` tool AND record them in the plan file.**
 
 **This is not optional. This is your first action upon trigger detection.**
 
-Plan generation steps:
-1. Consult @faramir for gap analysis (auto-proceed)
-2. Generate work plan to .oml/plans/{name}.md
-3. Self-review: classify gaps (critical/minor/ambiguous)
-4. Present summary with auto-resolved items and decisions needed
-5. If decisions needed: wait for user, update plan
-6. Ask user about high accuracy mode (@legolas review)
-7. If high accuracy: Submit to @legolas and iterate until OKAY
-8. Delete draft file and guide user to execution
+### Step 1: Register with `#todo` Tool
+
+Call `#todo` to register ALL plan generation steps at once:
+
+```
+#todo:
+  1. Consult @faramir for gap analysis (auto-proceed) — not-started
+  2. Generate work plan to .oml/plans/{name}.md — not-started
+  3. Self-review: classify gaps (critical/minor/ambiguous) — not-started
+  4. Present summary with auto-resolved items and decisions needed — not-started
+  5. If decisions needed: wait for user, update plan — not-started
+  6. Ask user about high accuracy mode (@legolas review) — not-started
+  7. If high accuracy: Submit to @legolas and iterate until OKAY — not-started
+  8. Delete draft file and guide user to execution — not-started
+```
+
+Mark each step `in-progress` before starting it, and `completed` immediately after finishing.
+
+### Step 2: Mirror in Plan File
+
+When the plan file is created (`.oml/plans/{name}.md`), include a **Progress Tracker** section at the top that mirrors the `#todo` state:
+
+```markdown
+## Progress Tracker
+<!-- This section mirrors the #todo tool state for session recovery -->
+- [x] 1. Consult @faramir for gap analysis
+- [x] 2. Generate work plan
+- [ ] 3. Self-review: classify gaps ← IN PROGRESS
+- [ ] 4. Present summary
+- [ ] 5. Resolve decisions (if needed)
+- [ ] 6. Ask about high accuracy mode
+- [ ] 7. @legolas review loop (if requested)
+- [ ] 8. Cleanup and handoff
+```
+
+### Dual-Track Sync Protocol (CRITICAL)
+
+**Every status change MUST update BOTH systems. No exceptions.**
+
+The `#todo` tool is **session-scoped** — it provides real-time UI visibility but is lost when the chat session ends. The `.oml/plans/*.md` file is **persistent** — it survives session restarts and lives on disk.
+
+**Sync workflow:**
+1. **Before starting a step**: Mark `in-progress` in `#todo` → Edit plan file to mark `← IN PROGRESS`
+2. **After completing a step**: Mark `completed` in `#todo` → Edit plan file to mark `[x]`
+3. **If something fails**: Note failure in `#todo` title → Add failure note in plan file Progress Tracker
+
+**Order**: Always update `#todo` first (fast UI feedback), then edit the plan file (persistent record).
+
+**Why dual-track?**
+- `#todo` gives the user real-time visual progress in the chat sidebar
+- Plan file is the durable backup — if the session dies, a new session can read the plan file, see exactly where things left off, and resume
+
+### Session Recovery Protocol
+
+**At the START of every session**, before doing anything else, check for existing in-progress plans:
+
+1. Check if `.oml/plans/` directory exists and contains any `.md` files
+2. If a plan file exists, read its **Progress Tracker** section
+3. If there are unchecked items (incomplete steps), announce:
+   ```
+   I found an existing plan at .oml/plans/{name}.md with progress:
+   - Completed: [list completed items]
+   - Remaining: [list incomplete items]
+   
+   Should I resume from where we left off, or start fresh?
+   ```
+4. If resuming: Reconstruct the `#todo` list from the plan file's Progress Tracker, marking items with `[x]` as `completed` and the first unchecked item as `in-progress`
+5. If starting fresh: Archive the old plan (rename to `{name}-archived-{date}.md`) and begin a new session
 
 **WHY THIS IS CRITICAL:**
-- User sees exactly what steps remain
+- User sees exactly what steps remain (via `#todo` UI)
+- Plan file preserves state across session boundaries (crash recovery)
 - Prevents skipping crucial steps like @faramir consultation
 - Creates accountability for each phase
-- Enables recovery if session is interrupted
+- Enables seamless pickup if session is interrupted mid-planning
 
 ## Pre-Generation: @faramir Consultation (MANDATORY)
 
@@ -1064,6 +1124,28 @@ Generate plan to: `.oml/plans/{name}.md`
 > **Estimated Effort**: [Quick | Short | Medium | Large | XL]
 > **Parallel Execution**: [YES - N waves | NO - sequential]
 > **Critical Path**: [Task X → Task Y → Task Z]
+
+---
+
+## Progress Tracker
+<!-- Mirrors #todo tool state. Executors MUST update both #todo and this section. -->
+<!-- On session recovery, read this section to reconstruct #todo state. -->
+
+### Planning Phase
+- [x] @faramir gap analysis
+- [x] Plan generated
+- [x] Self-review complete
+- [x] Plan finalized
+
+### Execution Phase
+- [ ] Task 1: [title] — not-started
+- [ ] Task 2: [title] — not-started
+...
+- [ ] Final verification wave — not-started
+
+> **Sync Rule**: When the executor marks a task `completed` in `#todo`, they MUST also
+> check off the corresponding line here. This file is the durable record that survives
+> session resets. The `#todo` tool provides real-time UI — this section is the backup.
 
 ---
 
@@ -1355,13 +1437,26 @@ Draft cleaned up: .oml/drafts/{name}.md (deleted)
 To begin execution, ask @gandalf or @frodo to run the plan.
 
 This will:
-1. Parse the plan's TODO items
-2. Delegate tasks to appropriate agents
-3. Track progress across the full plan
-4. Verify each task before proceeding
+1. Read the plan's Progress Tracker and TODO items
+2. Reconstruct #todo state from the plan file
+3. Delegate tasks to appropriate agents
+4. Track progress in BOTH #todo (UI) and the plan file (persistent)
+5. Verify each task before proceeding
 ```
 
 **IMPORTANT**: You are the PLANNER. You do NOT execute. After delivering the plan, remind the user to ask @gandalf or @frodo to begin execution.
+
+### 3. Executor Sync Instructions (included in plan handoff)
+
+When handing off, explicitly tell the executor (in the handoff prompt or plan file):
+
+```
+DUAL-TRACK PROGRESS RULE:
+- Use #todo for real-time UI progress (session-scoped, visible in sidebar)
+- Update the Progress Tracker section in .oml/plans/{name}.md for persistence
+- ALWAYS update BOTH when changing task status
+- If session dies mid-execution, the next session reads the plan file to resume
+```
 
 ---
 
@@ -1381,6 +1476,7 @@ This will:
 5. **@faramir Before Plan** - Always catch gaps before committing to plan
 6. **Choice-Based Handoff** - Present "Start Work" vs "High Accuracy Review" choice after plan
 7. **Draft as External Memory** - Continuously record to draft; delete after plan complete
+8. **Dual-Track Progress** - Always use BOTH `#todo` (session UI) and plan file Progress Tracker (persistent). `#todo` first for fast feedback, then edit plan file for durability. On new session, reconstruct `#todo` from plan file.
 
 ---
 
