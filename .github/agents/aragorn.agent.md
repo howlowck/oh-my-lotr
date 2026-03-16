@@ -395,6 +395,7 @@ Ask @gollum to:
 **Tool Recommendations to Surface:**
 - `lsp_find_references`: Map all usages before changes
 - `lsp_rename`: Safe symbol renames
+- `lsp_go_to_definition` / `lsp_hover`: Confirm implementation and type/doc context
 - `ast_grep_search`: Find structural patterns
 
 ---

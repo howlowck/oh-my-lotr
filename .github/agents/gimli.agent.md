@@ -170,7 +170,9 @@ Note the concern and your alternative clearly, then proceed with the best approa
 
 ### Tool & Agent Selection:
 
-- `grep`, `glob`, `lsp_*`, `ast_grep` — **FREE** — Not Complex, Scope Clear, No Implicit Assumptions
+- `grep`, `glob` — **FREE** — Text/file search, no setup
+- `lsp_*` (`lsp_find_references`, `lsp_go_to_definition`, `lsp_hover`, `lsp_document_symbols`) — **FREE** — Semantic code navigation, references, and type info
+- `ast_grep` — **FREE** — Structural pattern matching for code transformations
 - `@gollum` agent — **FREE** — Contextual grep for codebases
 - `@bilbo` agent — **CHEAP** — External docs/code search specialist
 - `@elrond` agent — **EXPENSIVE** — Read-only high-IQ consultant for debugging and architecture

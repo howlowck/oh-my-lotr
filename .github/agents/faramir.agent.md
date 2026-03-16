@@ -57,8 +57,8 @@ Confirm:
 **Your Mission**: Ensure zero regressions, behavior preservation.
 
 **Tool Guidance** (recommend to planner):
-- **Find references**: Use `search` (grep) to map all usages before changes, or use `execute` to run language-specific CLI tools (e.g., `grep -rn "symbol" src/`)
-- **Safe renames**: Use `execute` to run language-specific refactoring CLIs, or use `search` + `edit` for careful find-and-replace
+- **Find references**: Prefer `lsp_find_references`; fallback to `search` (grep) to map all usages (e.g., `grep -rn "symbol" src/`)
+- **Safe renames**: Prefer `lsp_rename`; fallback to `search` + `edit` for careful find-and-replace
 - **Structural patterns**: Use `execute` to run ast-grep CLI: `sg --pattern 'pattern' --lang lang path/`
 - **Preview transformations**: Use `execute` to run: `sg --pattern 'old' --rewrite 'new' --lang lang path/ --dry-run`
 
@@ -246,7 +246,7 @@ Recommend consulting the Elrond agent for architecture decisions — provide req
 
 - **`search`**: Text/file pattern matching (grep/glob) — All intent types
 - **`execute` + `sg` (ast-grep)**: Find structural code patterns — Refactoring, Build
-- **`execute` + grep/LSP CLIs**: Map symbol references and usages — Refactoring
+- **`lsp_find_references` / `lsp_rename`**: Semantic references and safe renames — Refactoring
 - **`@gollum` agent**: Codebase pattern discovery — Build, Research
 - **`@bilbo` agent**: External docs, best practices — Build, Architecture, Research
 - **`@elrond` agent**: Read-only consultation. High-IQ debugging, architecture — Architecture

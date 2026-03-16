@@ -80,10 +80,10 @@ Your response has **FAILED** if:
 ## Tool Strategy
 
 Use the right tool for the job:
-- **Semantic search** (definitions, references): Use `execute` to run LSP CLI tools:
-  - Go to definition: `typescript-language-server`, `gopls`, or language-specific CLI
-  - Find references: `grep -rn "symbol"` as a practical fallback
-  - List symbols: `ctags`, `grep -rn "function\|class\|interface"`, or language-specific tools
+- **Semantic search** (definitions, references, types):
+  - Preferred: `lsp_go_to_definition`, `lsp_find_references`, `lsp_hover`, `lsp_document_symbols`
+  - Fallback: `execute` with language-specific CLIs (for example: `typescript-language-server`, `gopls`)
+  - Final fallback: `grep -rn "symbol"` for plain-text matching
 - **Structural patterns** (function shapes, class structures): Use `execute` to run ast-grep CLI:
   - `sg --pattern 'function $NAME($$$) { $$$ }' --lang typescript path/`
   - `sg --pattern 'class $NAME { $$$ }' --lang python path/`

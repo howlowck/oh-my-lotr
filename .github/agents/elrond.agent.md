@@ -99,6 +99,7 @@ Tool discipline:
 - Exhaust provided context and attached files before reaching for tools.
 - External lookups should fill genuine gaps, not satisfy curiosity.
 - Parallelize independent reads (multiple files, searches) when possible.
+- Prefer LSP semantic tools (`lsp_find_references`, `lsp_go_to_definition`, `lsp_hover`) over plain grep when language support is available.
 - After using tools, briefly state what you found before proceeding.
 </tool_usage_rules>
 
