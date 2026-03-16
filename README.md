@@ -1,6 +1,6 @@
 # Oh My Lord (of the Rings)
 
-The AI agent harness for GitHub Copilot CLI — multi-agent orchestration with 11 specialized agents, 5 skills, and 3 MCP servers.
+The AI agent harness for GitHub Copilot CLI — multi-agent orchestration with 11 specialized agents, 3 skills, and 1 MCP server.
 
 > Agent Roles Ported from [oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent).
 
@@ -16,62 +16,43 @@ The AI agent harness for GitHub Copilot CLI — multi-agent orchestration with 1
    copilot plugin install ./oh-my-lord
    ```
 
-3. (Optional) Set up MCP server API keys:
-   ```bash
-   export EXA_API_KEY="your-exa-api-key"   # For Exa web search
-   ```
-
-4. Use `copilot` normally — all agents and skills are automatically available.
+3. Use `copilot` normally — all agents and skills are automatically available.
 
 ## What's Included
 
 ### Agents (11)
 
-| Agent | Model | Role | Writes Code | Invocation |
-|---|---|---|---|---|
-| **frodo** | Claude Opus 4.6 | Main orchestrator — plans, delegates, implements simple tasks, verifies | Yes (simple tasks) | `@frodo` |
-| **gandalf** | Claude Sonnet 4.6 | Master orchestrator — coordinates agents across large work plans | No (delegation only) | `@gandalf` |
-| **aragorn** | Claude Opus 4.6 | Strategic planner — interviews users, generates `.frodo/plans/*.md` | No (plans only) | `@aragorn` |
-| **gimli** | GPT-5.4 | Autonomous deep worker — explores thoroughly, completes end-to-end | Yes | `@gimli` |
-| **samwise** | Claude Sonnet 4.6 | Focused task executor — same discipline as frodo, no delegation | Yes | `@samwise` |
-| **elrond** | GPT-5.4 | Read-only consultant — high-IQ reasoning for architecture and debugging | No (read-only) | `@elrond` |
-| **faramir** | Claude Opus 4.6 | Pre-planning consultant — finds hidden gaps, ambiguities, failure points | No (analysis only) | `@faramir` |
-| **legolas** | GPT-5.4 | Plan reviewer — evaluates work plans for clarity and completeness | No (review only) | `@legolas` |
-| **gollum** | Grok Code Fast 1 | Codebase explorer — contextual grep across files, patterns, and structure | No (search only) | `@gollum` |
-| **bilbo** | Claude Haiku 4.5 | External researcher — searches docs, OSS examples, and remote codebases | No (search only) | `@bilbo` |
-| **galadriel** | GPT-5 Nano | Media analyzer — interprets PDFs, images, and diagrams | No (analysis only) | `@galadriel` |
+| Agent | Default Model | Role | Writes Code | 
+|---|---|---|---|
+| **frodo** | Claude Opus 4.6 | Main orchestrator — plans, delegates, implements simple tasks, verifies | Yes (simple tasks) | 
+| **gandalf** | Claude Sonnet 4.6 | Master orchestrator — coordinates agents across large work plans | No (delegation only) | 
+| **aragorn** | Claude Opus 4.6 | Strategic planner — interviews users, generates `.oml/plans/*.md` | No (plans only) | 
+| **gimli** | GPT-5.4 | Autonomous deep worker — explores thoroughly, completes end-to-end | Yes | 
+| **samwise** | Claude Sonnet 4.6 | Focused task executor — same discipline as frodo, no delegation | Yes | 
+| **elrond** | GPT-5.4 | Read-only consultant — high-IQ reasoning for architecture and debugging | No (read-only) | 
+| **faramir** | Claude Opus 4.6 | Pre-planning consultant — finds hidden gaps, ambiguities, failure points | No (analysis only) | 
+| **legolas** | GPT-5.4 | Plan reviewer — evaluates work plans for clarity and completeness | No (review only) | 
+| **gollum** | Grok Code Fast 1 | Codebase explorer — contextual grep across files, patterns, and structure | No (search only) | 
+| **bilbo** | Claude Haiku 4.5 | External researcher — searches docs, OSS examples, and remote codebases | No (search only) | 
+| **galadriel** | GPT-5 Nano | Media analyzer — interprets PDFs, images, and diagrams | No (analysis only) |
 
-### Skills (5)
+### Skills (3)
 
 | Skill | Description |
 |---|---|
 | **git-master** | Atomic commits, rebase/squash, history search (blame, bisect, log -S) |
 | **frontend-ui-ux** | Designer-turned-developer crafting stunning UI/UX without mockups |
-| **dev-browser** | Browser automation with persistent page state via Playwright |
-| **agent-browser** | Automated browser interactions for testing, screenshots, data extraction |
 | **github-triage** | Read-only GitHub issue/PR triage with evidence-backed reports |
 
-### MCP Servers (3)
+### MCP Servers (1)
 
 | Server | Purpose |
 |---|---|
-| **context7** | Up-to-date library documentation and code examples |
-| **websearch** (Exa) | Web search for current information, docs, and research |
 | **grep_app** | Search across public open-source codebases |
 
 ## Usage
 
-Once installed, just use `copilot` CLI as normal. Invoke agents by name:
-
-```
-@frodo implement the login flow
-@aragorn plan the migration to v2
-@gandalf coordinate the full release
-@elrond debug the race condition in auth middleware
-@gimli deep-dive into the performance regression
-@gollum find all error handling patterns in src/
-@bilbo find examples of Prisma middleware usage
-```
+Once installed in vscode, you'll find all the agents in Github Copilot Chat, or you can use `copilot` CLI as normal. Invoke agents using `/agent` then select Frodo.
 
 Skills are loaded automatically when relevant, or requested explicitly in agent prompts.
 
@@ -81,15 +62,15 @@ Each agent in Oh My Lord is named after a Lord of the Rings character whose qual
 
 ---
 
-### Frodo — The Ring-Bearer
+### Frodo — The Inspiration
 
 <img src="docs/media/agents/frodo-role.png" width="480" alt="Frodo — Main Orchestrator" />
 
 > *"Even the smallest person can change the course of the future."*
 
-**Role**: Main orchestrator — the default agent most users interact with.
+**Role**: Driver for success — the default agent most users interact with.
 
-**What he does**: Frodo receives your request, assesses complexity, and decides the best path forward. For simple tasks he rolls up his sleeves and implements directly. For complex work he delegates to specialists — firing parallel exploration agents, consulting Elrond on architecture, or handing off large plans to Gandalf. He tracks progress obsessively with todo lists and verifies every deliverable before reporting back.
+**What he does**: Frodo receives your request, assesses complexity, and decides the best path forward. For simple tasks he rolls up his sleeves and implements directly. For complex work he delegates to specialists — firing parallel exploration agents, consulting Elrond on architecture, or handing off more complex planning and strategy to Aragorn. He tracks progress obsessively with todo lists and verifies every deliverable before reporting back.
 
 **Philosophy**: Work, delegate, verify, ship. No AI slop. Frodo carries the burden of every task to its end — his code should be indistinguishable from a senior engineer's.
 
@@ -103,7 +84,29 @@ Each agent in Oh My Lord is named after a Lord of the Rings character whose qual
 
 ---
 
-### Gandalf — The White Wizard
+### Aragorn — The Strategist
+
+<img src="docs/media/agents/aragorn-role-night.png" width="480" alt="Aragorn — Strategic Planner" />
+
+> *"I do not know what strength is in my blood, but I swear to you I will not let the White City fall."*
+
+**Role**: Strategic planning consultant — interviews users and produces detailed work plans.
+
+**What he does**: Aragorn is a planner, not an implementer. When you bring him a task, he interviews you to understand requirements, fires exploration agents to research the codebase, consults Faramir to catch blind spots, and generates a comprehensive work plan to `.oml/plans/*.md`. He classifies intent (trivial, refactoring, greenfield, architecture), adapts his interview depth accordingly, and structures plans for maximum parallel execution.
+
+**Philosophy**: Planning is not doing. Aragorn brings the foresight of a Ranger and the strategic mind of a King. He'll refuse to implement even if you ask — and he'll explain why planning saves hours of debugging.
+
+| | |
+|---|---|
+| **Model** | Claude Opus 4.6 |
+| **Reasoning** | Highest — requirement analysis, scope decomposition, parallelism design |
+| **Writes code** | No (`.oml/*.md` plans and drafts only) |
+| **Delegates to** | Gollum, Bilbo, Faramir, Legolas, Elrond |
+| **Best for** | Feature planning, migration strategies, complex refactoring plans, architecture design sessions |
+
+---
+
+### Gandalf — The Orchestrator
 
 <img src="docs/media/agents/gandalf-role.png" width="480" alt="Gandalf — Master Orchestrator" />
 
@@ -122,28 +125,6 @@ Each agent in Oh My Lord is named after a Lord of the Rings character whose qual
 | **Writes code** | No (delegation only) |
 | **Delegates to** | All agents |
 | **Best for** | Executing large work plans, multi-wave parallel orchestration, release coordination |
-
----
-
-### Aragorn — The Ranger King
-
-<img src="docs/media/agents/aragorn-role-night.png" width="480" alt="Aragorn — Strategic Planner" />
-
-> *"I do not know what strength is in my blood, but I swear to you I will not let the White City fall."*
-
-**Role**: Strategic planning consultant — interviews users and produces detailed work plans.
-
-**What he does**: Aragorn is a planner, not an implementer. When you bring him a task, he interviews you to understand requirements, fires exploration agents to research the codebase, consults Faramir to catch blind spots, and generates a comprehensive work plan to `.frodo/plans/*.md`. He classifies intent (trivial, refactoring, greenfield, architecture), adapts his interview depth accordingly, and structures plans for maximum parallel execution.
-
-**Philosophy**: Planning is not doing. Aragorn brings the foresight of a Ranger and the strategic mind of a King. He'll refuse to implement even if you ask — and he'll explain why planning saves hours of debugging.
-
-| | |
-|---|---|
-| **Model** | Claude Opus 4.6 |
-| **Reasoning** | Highest — requirement analysis, scope decomposition, parallelism design |
-| **Writes code** | No (`.frodo/*.md` plans and drafts only) |
-| **Delegates to** | Gollum, Bilbo, Faramir, Legolas, Elrond |
-| **Best for** | Feature planning, migration strategies, complex refactoring plans, architecture design sessions |
 
 ---
 
@@ -213,7 +194,7 @@ Each agent in Oh My Lord is named after a Lord of the Rings character whose qual
 
 ---
 
-### Faramir — The Strategist of Gondor
+### Faramir — The Scout
 
 <img src="docs/media/agents/faramir-role-night.png" width="480" alt="Faramir — Pre-Planning Consultant" />
 
@@ -287,7 +268,7 @@ Each agent in Oh My Lord is named after a Lord of the Rings character whose qual
 
 **Role**: External researcher — searches official docs, OSS examples, and remote codebases.
 
-**What he does**: Bilbo ventures beyond the local codebase to find answers in the wider world. He searches official library documentation via Context7, finds production-quality OSS implementations on GitHub, and retrieves current best practices from the web. When an agent encounters an unfamiliar library or needs to know the recommended approach for a framework feature, Bilbo is the one they send.
+**What he does**: Bilbo ventures beyond the local codebase to find answers in the wider world. He finds production-quality OSS implementations on GitHub, clones repos to read official documentation directly, and retrieves current best practices. When an agent encounters an unfamiliar library or needs to know the recommended approach for a framework feature, Bilbo is the one they send.
 
 **Philosophy**: There and back again. Bilbo travels to the external world of docs and open source, gathers the knowledge, and brings it home. He's the translator between what the docs say and what your codebase needs.
 

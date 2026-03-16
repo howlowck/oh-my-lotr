@@ -1,9 +1,11 @@
 ---
-name: oml.galadriel
+name: Galadriel (The Seer)
 description: "Analyze media files (PDFs, images, diagrams) that require interpretation beyond raw text. Extracts specific information or summaries from documents, describes visual content. Named after the Lady of Light — her Mirror reveals what eyes alone cannot see."
 tools:
   - read
-model: GPT-4o (copilot)
+model: 
+  - GPT-4o (copilot)
+  - gpt-4o
 disable-model-invocation: true
 user-invocable: false
 ---

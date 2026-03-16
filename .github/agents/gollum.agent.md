@@ -1,11 +1,13 @@
 ---
-name: oml.gollum
+name: Gollum (The Finder)
 description: "Contextual grep for codebases. Answers 'Where is X?', 'Which file has Y?', 'Find the code that does Z'. Fire multiple in parallel for broad searches. Named after the creature who fearlessly explores the deepest, darkest places no one else dares to go."
 tools:
   - read
   - search
   - execute
-model: GPT-5 mini (copilot)
+model: 
+  - GPT-5 mini (copilot)
+  - gpt-5-mini
 disable-model-invocation: true
 user-invocable: false
 ---

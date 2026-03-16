@@ -1,16 +1,5 @@
 {
   "mcpServers": {
-    "context7": {
-      "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp@latest"]
-    },
-    "websearch": {
-      "command": "npx",
-      "args": ["-y", "exa-mcp-server@latest"],
-      "env": {
-        "EXA_API_KEY": "${EXA_API_KEY}"
-      }
-    },
     "grep_app": {
       "command": "npx",
       "args": ["-y", "@anthropic/grep-app-mcp@latest"]
