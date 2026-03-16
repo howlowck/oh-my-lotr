@@ -1,0 +1,11 @@
+{
+  "name": "oh-my-lord",
+  "description": "The AI agent harness for GitHub Copilot CLI - inspired and ported from oh-my-openagent",
+  "version": "1.0.0",
+  "agents": ".github/agents/",
+  "skills": [
+    ".github/skills/"
+  ],
+  "hooks": "hooks.json",
+  "mcpServers": ".mcp.json"
+}
