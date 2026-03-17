@@ -1,0 +1,18 @@
+{
+	"name": "oh-my-lotr",
+	"owner": {
+		"name": "Hao Luo"
+	},
+	"metadata": {
+		"description": "The best AI agent harness for GitHub Copilot CLI — multi-agent orchestration with 11 specialized agents, 3 skills, and 1 MCP servers",
+		"version": "1.1.0"
+	},
+	"plugins": [
+		{
+			"name": "oh-my-lotr",
+			"description": "The best AI agent harness for GitHub Copilot CLI — multi-agent orchestration with 11 specialized agents, 3 skills, and 1 MCP servers",
+			"version": "1.1.0",
+			"source": "."
+		}
+	]
+}
