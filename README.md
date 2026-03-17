@@ -2,9 +2,28 @@
 
 The AI agent harness for GitHub Copilot CLI — multi-agent orchestration with 11 specialized agents, 3 skills, and 1 MCP server.
 
-> Agent Roles Ported from [oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent).
+> Initial Agent Specialties and Skills Ported from [oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent).
 
 ## Installation
+
+### Option 1 (Recommended) - VSCode
+
+1. Enable [Agent Plugins](https://code.visualstudio.com/docs/copilot/customization/agent-plugins) in VSCode (`chat.plugins.enabled` tro true)
+2. Add `howlowck/awesome-copilot` to marketplace urls like so, optionally include the default marketplace repos.
+```json
+// settings.json
+"chat.plugins.enabled": true,
+"chat.plugins.marketplaces": [
+    "howlowck/awesome-copilot",
+    // "github/awesome-copilot" (default)
+    // "github/copilot-plugins" (default)
+]
+```
+3. Go to extensions and search for `@agentPlugins` to bring up the available Agent Plugins
+
+![alt text](docs/media/readme/install-structions.png)
+
+### Options 2 - Copilot CLI
 
 1. Clone this repository:
    ```bash
@@ -34,7 +53,7 @@ The AI agent harness for GitHub Copilot CLI — multi-agent orchestration with 1
 | **legolas** | GPT-5.4 | Plan reviewer — evaluates work plans for clarity and completeness | No (review only) | 
 | **gollum** | Grok Code Fast 1 | Codebase explorer — contextual grep across files, patterns, and structure | No (search only) | 
 | **bilbo** | Claude Haiku 4.5 | External researcher — searches docs, OSS examples, and remote codebases | No (search only) | 
-| **galadriel** | GPT-5 Nano | Media analyzer — interprets PDFs, images, and diagrams | No (analysis only) |
+| **galadriel** | GPT-4o | Media analyzer — interprets PDFs, images, and diagrams | No (analysis only) |
 
 ### Skills (3)
 
