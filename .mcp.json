@@ -1,8 +1,1 @@
-{
-  "mcpServers": {
-    "grep_app": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/grep-app-mcp@latest"]
-    }
-  }
-}
+{}

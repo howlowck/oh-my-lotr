@@ -63,12 +63,6 @@ The AI agent harness for GitHub Copilot CLI — multi-agent orchestration with 1
 | **frontend-ui-ux** | Designer-turned-developer crafting stunning UI/UX without mockups |
 | **github-triage** | Read-only GitHub issue/PR triage with evidence-backed reports |
 
-### MCP Servers (1)
-
-| Server | Purpose |
-|---|---|
-| **grep_app** | Search across public open-source codebases |
-
 ## Usage
 
 Once installed in vscode, you'll find all the agents in Github Copilot Chat, or you can use `copilot` CLI as normal. Invoke agents using `/agent` then select Frodo.

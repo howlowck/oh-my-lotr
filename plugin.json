@@ -2,6 +2,10 @@
 	"name": "oh-my-lotr",
 	"description": "The AI agent harness for GitHub Copilot CLI - inspired and ported from oh-my-openagent",
 	"version": "1.1.0",
+	"author": {
+		"name": "Hao Luo",
+		"email": "haolu@microsoft.com"
+	},
 	"agents": ".github/agents/",
 	"skills": [".github/skills/"],
 	"hooks": "hooks.json",
