@@ -11,6 +11,9 @@ build/
 coverage/
 *.tsbuildinfo
 
+# Astro
+.astro/
+
 # Logs
 *.log
 npm-debug.log*
