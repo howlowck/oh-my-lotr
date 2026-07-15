@@ -43,17 +43,17 @@ The AI agent harness for GitHub Copilot CLI — multi-agent orchestration with 1
 
 | Agent | Default Model | Role | Writes Code | 
 |---|---|---|---|
-| **frodo** | Claude Opus 4.6 | Main orchestrator — plans, delegates, implements simple tasks, verifies | Yes (simple tasks) | 
-| **gandalf** | Claude Sonnet 4.6 | Master orchestrator — coordinates agents across large work plans | No (delegation only) | 
-| **aragorn** | Claude Opus 4.6 | Strategic planner — interviews users, generates `.oml/plans/*.md` | No (plans only) | 
-| **gimli** | GPT-5.4 | Autonomous deep worker — explores thoroughly, completes end-to-end | Yes | 
-| **samwise** | Claude Sonnet 4.6 | Focused task executor — same discipline as frodo, no delegation | Yes | 
-| **elrond** | GPT-5.4 | Read-only consultant — high-IQ reasoning for architecture and debugging | No (read-only) | 
-| **faramir** | Claude Opus 4.6 | Pre-planning consultant — finds hidden gaps, ambiguities, failure points | No (analysis only) | 
-| **legolas** | GPT-5.4 | Plan reviewer — evaluates work plans for clarity and completeness | No (review only) | 
-| **gollum** | Grok Code Fast 1 | Codebase explorer — contextual grep across files, patterns, and structure | No (search only) | 
-| **bilbo** | Claude Haiku 4.5 | External researcher — searches docs, OSS examples, and remote codebases | No (search only) | 
-| **galadriel** | GPT-4o | Media analyzer — interprets PDFs, images, and diagrams | No (analysis only) |
+| **frodo** | Claude Opus 4.8 | Main orchestrator — plans, delegates, implements simple tasks, verifies | Yes (simple tasks) |
+| **gandalf** | GPT-5.6 Sol | Master orchestrator — coordinates agents across large work plans | No (delegation only) |
+| **aragorn** | GPT-5.6 Sol | Strategic planner — interviews users, generates `.oml/plans/*.md` | No (plans only) |
+| **gimli** | Claude Opus 4.8 | Autonomous deep worker — explores thoroughly, completes end-to-end | Yes |
+| **samwise** | Claude Opus 4.8 | Focused task executor — same discipline as frodo, no delegation | Yes |
+| **elrond** | GPT-5.6 Sol | Read-only consultant — high-IQ reasoning for architecture and debugging | No (read-only) |
+| **faramir** | GPT-5.6 Sol | Pre-planning consultant — finds hidden gaps, ambiguities, failure points | No (analysis only) |
+| **legolas** | GPT-5.6 Sol | Plan reviewer — evaluates work plans for clarity and completeness | No (review only) |
+| **gollum** | Claude Sonnet 5 | Codebase explorer — contextual grep across files, patterns, and structure | No (search only) |
+| **bilbo** | Claude Sonnet 5 | External researcher — searches docs, OSS examples, and remote codebases | No (search only) |
+| **galadriel** | Claude Sonnet 5 | Media analyzer — interprets PDFs, images, and diagrams | No (analysis only) |
 
 ### Skills (3)
 
@@ -69,9 +69,31 @@ Once installed in vscode, you'll find all the agents in Github Copilot Chat, or 
 
 Skills are loaded automatically when relevant, or requested explicitly in agent prompts.
 
+## Updating Agents
+
+Agent source lives in `agent-src/`. `agent-src/agents.config.json` assigns each agent a `reasoningLevel` and `workType`; those dimensions select shared instruction partials and the model:
+
+- High reasoning or planning: GPT-5.6 Sol
+- Coding and work-focused execution: Claude Opus 4.8
+- Small, quick retrieval and analysis: Claude Sonnet 5
+
+Run `npm install`, then `npm run build:agents` to regenerate the committed `.github/agents/*.agent.md` deployment artifacts. `npm run check:agents` fails when generated files are stale.
+
+## Releasing a Version
+
+Use the bump script to update `package.json`, `plugin.json`, and both marketplace version fields together:
+
+```bash
+npm run bump -- patch
+npm run bump -- minor
+npm run bump -- major
+```
+
+Add `--dry-run` to preview the next version without changing files. The command stops without writing if the manifests are already out of sync.
+
 ## Meet the Fellowship
 
-Each agent in Oh My Lord is named after a Lord of the Rings character whose qualities mirror their role in the system. Together they form a Fellowship — orchestrators, planners, workers, scouts, and advisors — each with a distinct purpose.
+Each agent in Oh My LOTR is named after a Lord of the Rings character whose qualities mirror their role in the system. Together they form a Fellowship — orchestrators, planners, workers, scouts, and advisors — each with a distinct purpose.
 
 ---
 
@@ -89,7 +111,7 @@ Each agent in Oh My Lord is named after a Lord of the Rings character whose qual
 
 | | |
 |---|---|
-| **Model** | Claude Opus 4.6 |
+| **Model** | Claude Opus 4.8 |
 | **Reasoning** | Highest — complex orchestration, implicit requirement parsing, codebase maturity assessment |
 | **Writes code** | Yes (simple/medium tasks) |
 | **Delegates to** | All agents |
@@ -111,7 +133,7 @@ Each agent in Oh My Lord is named after a Lord of the Rings character whose qual
 
 | | |
 |---|---|
-| **Model** | Claude Opus 4.6 |
+| **Model** | GPT-5.6 Sol |
 | **Reasoning** | Highest — requirement analysis, scope decomposition, parallelism design |
 | **Writes code** | No (`.oml/*.md` plans and drafts only) |
 | **Delegates to** | Gollum, Bilbo, Faramir, Legolas, Elrond |
@@ -133,7 +155,7 @@ Each agent in Oh My Lord is named after a Lord of the Rings character whose qual
 
 | | |
 |---|---|
-| **Model** | Claude Sonnet 4.6 |
+| **Model** | GPT-5.6 Sol |
 | **Reasoning** | High — coordination logic, dependency tracking, multi-wave orchestration |
 | **Writes code** | No (delegation only) |
 | **Delegates to** | All agents |
@@ -155,7 +177,7 @@ Each agent in Oh My Lord is named after a Lord of the Rings character whose qual
 
 | | |
 |---|---|
-| **Model** | GPT-5.4 |
+| **Model** | Claude Opus 4.8 |
 | **Reasoning** | High — autonomous decision-making, multi-approach problem solving |
 | **Writes code** | Yes (primary code writer for deep tasks) |
 | **Delegates to** | Gollum, Bilbo, Elrond, Faramir, Legolas, Samwise |
@@ -177,7 +199,7 @@ Each agent in Oh My Lord is named after a Lord of the Rings character whose qual
 
 | | |
 |---|---|
-| **Model** | Claude Sonnet 4.6 |
+| **Model** | Claude Opus 4.8 |
 | **Reasoning** | Medium-high — focused execution, pattern matching, code quality |
 | **Writes code** | Yes (primary delegated executor) |
 | **Delegates to** | Gollum, Bilbo (search only) |
@@ -199,7 +221,7 @@ Each agent in Oh My Lord is named after a Lord of the Rings character whose qual
 
 | | |
 |---|---|
-| **Model** | GPT-5.4 |
+| **Model** | GPT-5.6 Sol |
 | **Reasoning** | Highest — deep analysis, multi-system tradeoffs, architectural foresight |
 | **Writes code** | No (read-only, consultation only) |
 | **Delegates to** | None |
@@ -221,7 +243,7 @@ Each agent in Oh My Lord is named after a Lord of the Rings character whose qual
 
 | | |
 |---|---|
-| **Model** | Claude Opus 4.6 |
+| **Model** | GPT-5.6 Sol |
 | **Reasoning** | Highest — ambiguity detection, assumption surfacing, failure mode analysis |
 | **Writes code** | No (analysis only) |
 | **Delegates to** | None |
@@ -243,7 +265,7 @@ Each agent in Oh My Lord is named after a Lord of the Rings character whose qual
 
 | | |
 |---|---|
-| **Model** | GPT-5.4 |
+| **Model** | GPT-5.6 Sol |
 | **Reasoning** | High — reference verification, executability assessment, practical judgment |
 | **Writes code** | No (review only) |
 | **Delegates to** | None |
@@ -265,7 +287,7 @@ Each agent in Oh My Lord is named after a Lord of the Rings character whose qual
 
 | | |
 |---|---|
-| **Model** | Grok Code Fast 1 |
+| **Model** | Claude Sonnet 5 |
 | **Reasoning** | Low — optimized for speed, not analysis |
 | **Writes code** | No (search only) |
 | **Delegates to** | None |
@@ -287,7 +309,7 @@ Each agent in Oh My Lord is named after a Lord of the Rings character whose qual
 
 | | |
 |---|---|
-| **Model** | Claude Haiku 4.5 |
+| **Model** | Claude Sonnet 5 |
 | **Reasoning** | Low-medium — search synthesis, relevance filtering |
 | **Writes code** | No (search only) |
 | **Delegates to** | None |
@@ -309,7 +331,7 @@ Each agent in Oh My Lord is named after a Lord of the Rings character whose qual
 
 | | |
 |---|---|
-| **Model** | GPT-5 Nano |
+| **Model** | Claude Sonnet 5 |
 | **Reasoning** | Low — focused on visual interpretation, not complex reasoning |
 | **Writes code** | No (analysis only) |
 | **Delegates to** | None |
