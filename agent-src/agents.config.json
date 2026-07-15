@@ -1,0 +1,89 @@
+{
+  "modelPrecedence": [
+    "reasoningLevel",
+    "workType"
+  ],
+  "dimensions": {
+    "reasoningLevel": {
+      "high": {
+        "model": {
+          "display": "GPT-5.6 Sol",
+          "id": "gpt-5.6-sol"
+        },
+        "instructions": "reasoning-high"
+      },
+      "standard": {
+        "instructions": "reasoning-standard"
+      }
+    },
+    "workType": {
+      "planning": {
+        "model": {
+          "display": "GPT-5.6 Sol",
+          "id": "gpt-5.6-sol"
+        },
+        "instructions": "work-planning"
+      },
+      "coding": {
+        "model": {
+          "display": "Claude Opus 4.8",
+          "id": "claude-opus-4.8"
+        },
+        "instructions": "work-coding"
+      },
+      "quick": {
+        "model": {
+          "display": "Claude Sonnet 5",
+          "id": "claude-sonnet-5"
+        },
+        "instructions": "work-quick"
+      }
+    }
+  },
+  "agents": {
+    "frodo": {
+      "reasoningLevel": "standard",
+      "workType": "coding"
+    },
+    "gandalf": {
+      "reasoningLevel": "high",
+      "workType": "planning"
+    },
+    "aragorn": {
+      "reasoningLevel": "high",
+      "workType": "planning"
+    },
+    "gimli": {
+      "reasoningLevel": "standard",
+      "workType": "coding"
+    },
+    "samwise": {
+      "reasoningLevel": "standard",
+      "workType": "coding"
+    },
+    "elrond": {
+      "reasoningLevel": "high",
+      "workType": "planning"
+    },
+    "faramir": {
+      "reasoningLevel": "high",
+      "workType": "planning"
+    },
+    "legolas": {
+      "reasoningLevel": "high",
+      "workType": "planning"
+    },
+    "gollum": {
+      "reasoningLevel": "standard",
+      "workType": "quick"
+    },
+    "bilbo": {
+      "reasoningLevel": "standard",
+      "workType": "quick"
+    },
+    "galadriel": {
+      "reasoningLevel": "standard",
+      "workType": "quick"
+    }
+  }
+}
